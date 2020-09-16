@@ -8,11 +8,7 @@
         <IconComponent :weatherType="weatherType" :size="'6x'" />
       </div>
       <div class="temp-item">
-        <p class="temp-item-top">
-          {{ convertedTemp }}
-          <template v-if="unit === 'f'">°F</template>
-          <template v-else-if="unit === 'c'">°C</template>
-        </p>
+        <TemperatureComponent :temp="temp" :unit="unit" :className="'temp-item-top'" />
         <p class="temp-item-bottom">{{ description }}</p>
       </div>
     </div>
@@ -21,10 +17,13 @@
 
 <script>
 import IconComponent from "./IconComponent";
+import TemperatureComponent from "./TemperatureComponent";
+
 export default {
   name: "PrimaryWeatherComponent",
   components: {
     IconComponent,
+    TemperatureComponent,
   },
   props: {
     city: String,
@@ -33,13 +32,6 @@ export default {
     temp: Number,
     description: String,
     unit: String,
-  },
-  computed: {
-    convertedTemp() {
-      return this.unit === "f"
-        ? Math.round((this.temp - 273.15) * (9 / 5) + 32)
-        : Math.round(this.temp - 273.15);
-    },
   },
 };
 </script>

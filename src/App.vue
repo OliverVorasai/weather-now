@@ -24,7 +24,7 @@
           />
         </div>
         <div v-if="forecast">
-          <HourlyForecastComponent :hourly="forecast.hourly" />
+          <HourlyForecastComponent :hourly="forecast.hourly" :unit="temperatureUnit" />
         </div>
       </div>
     </div>

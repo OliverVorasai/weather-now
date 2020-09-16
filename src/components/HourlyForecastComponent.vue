@@ -7,21 +7,24 @@
       <br />
       <IconComponent :weatherType="forecast.weather[0].id" :size="'lg'" />
       <br />
-      <span>{{ forecast.temp }}</span>
+      <span><TemperatureComponent :temp="forecast.temp" :unit="unit"/></span>
     </div>
   </div>
 </template>
 
 <script>
 import IconComponent from "./IconComponent";
+import TemperatureComponent from "./TemperatureComponent";
 
 export default {
   name: "HourlyForecastComponent",
   components: {
     IconComponent,
+    TemperatureComponent
   },
   props: {
     hourly: Array,
+    unit: String,
   },
   methods: {
     getDate(timestamp) {
@@ -45,9 +48,9 @@ export default {
     let scrollMax = container.scrollWidth - container.clientWidth;
 
     // Recalculate max width on window resize
-    window.addEventListener('resize', () => {
+    window.addEventListener("resize", () => {
       scrollMax = container.scrollWidth - container.clientWidth;
-    })
+    });
 
     container.addEventListener("wheel", (e) => {
       if (e.deltaY > 0) {

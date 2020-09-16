@@ -2,11 +2,7 @@
   <div class="container">
     <div class="grid-container">
       <div>
-        <p class="top">
-          {{ convertedTemp }}
-          <template v-if="unit === 'f'">°F</template>
-          <template v-else-if="unit === 'c'">°C</template>
-        </p>
+        <TemperatureComponent :temp="feelsLike" :unit="unit" :className="'top'" />
         <p class="bottom">Feels Like</p>
       </div>
       <div>
@@ -46,8 +42,13 @@
 </template>
 
 <script>
+import TemperatureComponent from "./TemperatureComponent";
+
 export default {
   name: "SecondaryWeatherComponent",
+  components: {
+    TemperatureComponent,
+  },
   props: {
     feelsLike: Number,
     wind: Object,
@@ -58,11 +59,6 @@ export default {
     unit: String,
   },
   computed: {
-    convertedTemp() {
-      return this.unit === "f"
-        ? Math.round((this.feelsLike - 273.15) * (9 / 5) + 32)
-        : Math.round(this.feelsLike - 273.15);
-    },
     convertedVisibility() {
       return this.unit === "f"
         ? Math.round((this.visibility / 1609.344) * 100) / 100
