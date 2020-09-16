@@ -4,7 +4,7 @@
       <HeaderComponent :searchMade="searchMade" />
       <SearchFormComponent :callback="getWeather" v-model="location" />
       <div class="fadeIn" :style="style">
-        <div class="grid-container" v-if="weatherObject">
+        <div class="app-grid-container" v-if="weatherObject">
           <PrimaryWeatherComponent
             :city="weatherObject.name"
             :country="weatherObject.sys.country"
@@ -23,6 +23,9 @@
             :unit="temperatureUnit"
           />
         </div>
+        <div v-if="forecast">
+          <HourlyForecastComponent :hourly="forecast.hourly" />
+        </div>
       </div>
     </div>
   </div>
@@ -33,6 +36,7 @@ import HeaderComponent from "./components/HeaderComponent";
 import SearchFormComponent from "./components/SearchFormComponent";
 import PrimaryWeatherComponent from "./components/PrimaryWeatherComponent";
 import SecondaryWeatherComponent from "./components/SecondaryWeatherComponent";
+import HourlyForecastComponent from "./components/HourlyForecastComponent";
 
 export default {
   name: "App",
@@ -41,6 +45,7 @@ export default {
     SearchFormComponent,
     PrimaryWeatherComponent,
     SecondaryWeatherComponent,
+    HourlyForecastComponent
   },
   data() {
     return {
@@ -61,24 +66,43 @@ export default {
     getWeather() {
       let apiKey = process.env.VUE_APP_API_KEY;
       let weather = `https://api.openweathermap.org/data/2.5/weather?q=${this.location}&appid=${apiKey}`;
-      let forecast = `https://api.openweathermap.org/data/2.5/forecast?q=${this.location}&appid=${apiKey}`;
-      Promise.all([fetch(weather), fetch(forecast)])
-        .then(([res1, res2]) => {
-          if (res1.ok && res2.ok) {
-            return Promise.all([res1.json(), res2.json()]);
+      
+      Promise.all([fetch(weather)])
+        .then(([res1]) => {
+          if (res1.ok) {
+            return Promise.all([res1.json()]);
           } else {
-            throw Error(res1.statusText, res2.statusText);
+            throw Error(res1.statusText);
           }
         })
-        .then(([data1, data2]) => {
+        .then(([data1]) => {
           this.weatherObject = data1;
-          this.forecast = data2;
           this.searchMade = true;
+          this.getForecast(this.weatherObject.coord.lat, this.weatherObject.coord.lon);
         })
         .catch((error) => {
           this.error = error;
         });
     },
+    getForecast(lat, lon) {
+      let apiKey = process.env.VUE_APP_API_KEY;
+      let forecast = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=current,minutely&appid=${apiKey}`;
+
+      Promise.all([fetch(forecast)])
+      .then(([res1]) => {
+        if (res1.ok) {
+          return Promise.all([res1.json()]);
+        } else {
+          throw Error(res1.statusText);
+        }
+      })
+      .then(([data1]) => {
+        this.forecast = data1;
+      })
+      .catch((error) => {
+        this.error = error;
+      })
+    }
   },
 };
 </script>
@@ -99,7 +123,7 @@ body {
   min-height: 100vh;
 }
 
-.grid-container {
+.app-grid-container {
   display: grid;
   margin-top: 40px;
   @media only screen and (max-width: 768px) {

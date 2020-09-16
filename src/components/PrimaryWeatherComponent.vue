@@ -5,7 +5,7 @@
         <h2>{{city}}, {{country}}</h2>
       </div>
       <div class="icon-item">
-        <vue-fontawesome :icon="iconName" size="6x" />
+        <IconComponent :weatherType="weatherType" :size="'6x'" />
       </div>
       <div class="temp-item">
         <p class="temp-item-top">
@@ -13,17 +13,19 @@
           <template v-if="unit === 'f'">°F</template>
           <template v-else-if="unit === 'c'">°C</template>
         </p>
-        <p class="temp-item-bottom">
-          {{ description }}
-        </p>
+        <p class="temp-item-bottom">{{ description }}</p>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import IconComponent from "./IconComponent";
 export default {
   name: "PrimaryWeatherComponent",
+  components: {
+    IconComponent,
+  },
   props: {
     city: String,
     country: String,
@@ -37,23 +39,6 @@ export default {
       return this.unit === "f"
         ? Math.round((this.temp - 273.15) * (9 / 5) + 32)
         : Math.round(this.temp - 273.15);
-    },
-    iconName() {
-      if (this.weatherType >= 200 && this.weatherType <= 232) {
-        return "bolt";
-      } else if (this.weatherType >= 300 && this.weatherType <= 531) {
-        return "cloud-rain";
-      } else if (this.weatherType >= 600 && this.weatherType <= 622) {
-        return "snow-flake";
-      } else if (this.weatherType >= 701 && this.weatherType <= 781) {
-        return "smog";
-      } else if (this.weatherType === 800) {
-        return "sun";
-      } else if (this.weatherType >= 801 && this.weatherType <= 804) {
-        return "cloud";
-      } else {
-        return "sun";
-      }
     },
   },
 };
