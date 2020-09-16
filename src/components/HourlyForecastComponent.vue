@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" id="hourly-forecast-container">
     <div class="hourly-forecast" v-for="forecast in hourly.slice(0, 20)" :key="forecast.dt">
       <span>{{ getDate(forecast.dt) }}</span>
       <br />
@@ -34,9 +34,43 @@ export default {
     getTime(timestamp) {
       let d = new Date(timestamp * 1000);
       return d.toLocaleTimeString([], {
-        hour: "2-digit"
-      }) 
-    }
+        hour: "2-digit",
+      });
+    },
+  },
+  mounted() {
+    // Enable horizontal smooth scrolling with mousewheel
+    let container = document.getElementById("hourly-forecast-container");
+    let scrollAmount = 0;
+    let scrollMax = container.scrollWidth - container.clientWidth;
+
+    // Recalculate max width on window resize
+    window.addEventListener('resize', () => {
+      scrollMax = container.scrollWidth - container.clientWidth;
+    })
+
+    container.addEventListener("wheel", (e) => {
+      if (e.deltaY > 0) {
+        // Ensures that we only scroll up to the  limit of the container, or else
+        // scrollAmount would keep increasing every time the user scrolls down
+        // and it would take an equal amount of scroll ups to "begin" going left
+        scrollAmount = Math.min(scrollAmount + 100, scrollMax);
+        // Use scrollTo instead of scrollLeft/scrollRight to enable smooth scroll
+        container.scrollTo({
+          top: 0,
+          left: scrollAmount,
+          behavior: "smooth",
+        });
+      } else {
+        // Smallest possible scroll position is 0 so make sure it is the limit
+        scrollAmount = Math.max(scrollAmount - 100, 0);
+        container.scrollTo({
+          top: 0,
+          left: scrollAmount,
+          behavior: "smooth",
+        });
+      }
+    });
   },
 };
 </script>
