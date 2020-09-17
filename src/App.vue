@@ -66,7 +66,15 @@ export default {
   methods: {
     getWeather() {
       let apiKey = process.env.VUE_APP_API_KEY;
-      let weather = `https://api.openweathermap.org/data/2.5/weather?q=${this.location}&appid=${apiKey}`;
+      let zipCodeRegex = /\d{5}/;
+      let weather = "";
+      this.location = this.location.trim().toLowerCase();
+      
+      if (zipCodeRegex.test(this.location)) {
+        weather = `https://api.openweathermap.org/data/2.5/weather?zip=${this.location}&appid=${apiKey}`;
+      } else {
+        weather = `https://api.openweathermap.org/data/2.5/weather?q=${this.location}&appid=${apiKey}`;
+      }
 
       Promise.all([fetch(weather)])
         .then(([res1]) => {
@@ -95,7 +103,7 @@ export default {
       return new Promise(() => {
         setTimeout(() => {
           this.show = true;
-        }, 1000)
+        }, 1000);
       });
     },
     getForecast(lat, lon) {

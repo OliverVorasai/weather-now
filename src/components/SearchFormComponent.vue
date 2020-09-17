@@ -8,7 +8,7 @@
             type="text"
             :value="location"
             @input="$emit('input', $event.target.value)"
-            placeholder="Enter location"
+            placeholder="Enter City or Zipcode"
           />
           <span class="icon is-small is-left">
             <vue-fontawesome icon="search" />
