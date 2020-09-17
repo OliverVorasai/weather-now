@@ -44,6 +44,7 @@ form {
     font-family: "Dosis", sans-serif;
     border-color: white;
     box-shadow: rgba(0, 0, 0, 0.1) 3px 3px 3px;
+    transition: 0.5s;
     &:hover {
       border-color: white;
     }
