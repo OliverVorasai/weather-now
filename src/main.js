@@ -3,13 +3,32 @@ import App from './App.vue';
 import Bulma from 'bulma';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faCloud, faBolt, faCloudRain, faSnowflake, faSun, faSmog, faSearch, faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import {
+  faCloud,
+  faBolt,
+  faCloudRain,
+  faSnowflake,
+  faSun,
+  faSmog,
+  faSearch,
+  faExclamationCircle,
+  faLongArrowAltUp
+} from "@fortawesome/free-solid-svg-icons";
 
 Vue.config.productionTip = false
 
-
-library.add(faCloud, faBolt, faCloudRain, faSnowflake, faSun, faSmog, faSearch, faExclamationCircle);
+library.add(
+  faCloud,
+  faBolt,
+  faCloudRain,
+  faSnowflake,
+  faSun,
+  faSmog,
+  faSearch,
+  faExclamationCircle,
+  faLongArrowAltUp
+);
 Vue.component('vue-fontawesome', FontAwesomeIcon);
 
 
