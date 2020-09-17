@@ -3,8 +3,8 @@
     <div class="container">
       <HeaderComponent :searchMade="searchMade" />
       <SearchFormComponent :callback="getWeather" v-model="location" />
-      <transition name="fade">
-        <div v-if="show">
+      <transition name="fade" mode="out-in">
+        <div v-if="show && !error" key="weather-info">
           <div class="app-grid-container" v-if="weatherObject">
             <PrimaryWeatherComponent
               :city="weatherObject.name"
@@ -29,6 +29,9 @@
             <DailyForecastComponent :daily="forecast.daily" :unit="temperatureUnit" />
           </div>
         </div>
+        <div v-else-if="error" key="error-info">
+          <ErrorComponent />
+        </div>
       </transition>
     </div>
   </div>
@@ -41,6 +44,7 @@ import PrimaryWeatherComponent from "./components/PrimaryWeatherComponent";
 import SecondaryWeatherComponent from "./components/SecondaryWeatherComponent";
 import HourlyForecastComponent from "./components/HourlyForecastComponent";
 import DailyForecastComponent from "./components/DailyForecastComponent";
+import ErrorComponent from "./components/ErrorComponent";
 
 export default {
   name: "App",
@@ -51,6 +55,7 @@ export default {
     SecondaryWeatherComponent,
     HourlyForecastComponent,
     DailyForecastComponent,
+    ErrorComponent,
   },
   data() {
     return {
@@ -69,7 +74,7 @@ export default {
       let zipCodeRegex = /\d{5}/;
       let weather = "";
       this.location = this.location.trim().toLowerCase();
-      
+
       if (zipCodeRegex.test(this.location)) {
         weather = `https://api.openweathermap.org/data/2.5/weather?zip=${this.location}&appid=${apiKey}`;
       } else {
@@ -87,6 +92,7 @@ export default {
         .then(([data1]) => {
           this.weatherObject = data1;
           this.searchMade = true;
+          this.error = false;
           this.getForecast(
             this.weatherObject.coord.lat,
             this.weatherObject.coord.lon
@@ -157,10 +163,10 @@ body {
   transition: 0.5s;
 }
 
-.fade-enter-active {
+.fade-enter-active, .fade-leave-active {
   transition: opacity 0.5s;
 }
-.fade-enter {
+.fade-enter, .fade-leave {
   opacity: 0;
 }
 </style>
