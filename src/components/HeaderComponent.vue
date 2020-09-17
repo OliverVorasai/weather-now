@@ -10,18 +10,23 @@ export default {
   },
   computed: {
     style() {
-      return this.searchMade ? "padding-top: 5%" : "padding-top: 20%";
+      return this.searchMade ? "padding-top: 0%" : "padding-top: 20%";
     },
   },
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 h1 {
   display: block;
   text-transform: uppercase;
   color: #ffffff;
   transition: 0.5s;
-  font-size: 5rem;
+  @media only screen and (max-width: 768px) {
+    font-size: 3rem;
+  }
+  @media only screen and (min-width: 769px) {
+    font-size: 5rem;
+  }
 }
 </style>
