@@ -13,6 +13,7 @@
               :temp="weatherObject.main.temp"
               :description="weatherObject.weather[0].main"
               :unit="temperatureUnit"
+              @clicked="changeUnit"
             />
             <SecondaryWeatherComponent
               :feelsLike="weatherObject.main.feels_like"
@@ -131,6 +132,9 @@ export default {
           this.error = error;
         });
     },
+    changeUnit(e) {
+      this.temperatureUnit = e;
+    },
   },
 };
 </script>
@@ -163,10 +167,12 @@ body {
   transition: 0.5s;
 }
 
-.fade-enter-active, .fade-leave-active {
+.fade-enter-active,
+.fade-leave-active {
   transition: opacity 0.5s;
 }
-.fade-enter, .fade-leave {
+.fade-enter,
+.fade-leave {
   opacity: 0;
 }
 </style>

@@ -1,8 +1,6 @@
 <template>
   <p :class="className">
-    {{ convertedTemp }}
-    <template v-if="unit === 'f'">°F</template>
-    <template v-else-if="unit === 'c'">°C</template>
+    {{ convertedTemp }}°
   </p>
 </template>
 

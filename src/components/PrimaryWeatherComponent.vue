@@ -10,6 +10,7 @@
       <div class="temp-item">
         <TemperatureComponent :temp="temp" :unit="unit" :className="'temp-item-top'" />
         <p class="temp-item-bottom">{{ description }}</p>
+        <UnitSwitchComponent @clicked="emitUnit" />
       </div>
     </div>
   </div>
@@ -18,12 +19,14 @@
 <script>
 import IconComponent from "./IconComponent";
 import TemperatureComponent from "./TemperatureComponent";
+import UnitSwitchComponent from "./UnitSwitchComponent";
 
 export default {
   name: "PrimaryWeatherComponent",
   components: {
     IconComponent,
     TemperatureComponent,
+    UnitSwitchComponent,
   },
   props: {
     city: String,
@@ -32,6 +35,11 @@ export default {
     temp: Number,
     description: String,
     unit: String,
+  },
+  methods: {
+    emitUnit(e) {
+      this.$emit("clicked", e);
+    },
   },
 };
 </script>
@@ -49,38 +57,39 @@ h2 {
 
 .grid-container {
   display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
   grid-gap: 10px;
 }
 
 .header-item {
-  grid-column-start: 1;
-  grid-column-end: 3;
-  grid-row-start: 1;
-  grid-row-end: 2;
+  grid-area: 1 / 1 / 2 / 3;
 }
 
 .icon-item {
-  grid-column-start: 1;
-  grid-column-end: 2;
-  grid-row-start: 2;
-  grid-row-end: 3;
+  grid-area: 2 / 1 / 3 / 2;
 }
 
 .temp-item {
-  grid-column-start: 2;
-  grid-column-end: 3;
-  grid-row-start: 2;
-  grid-row-end: 3;
+  grid-area: 2 / 2 / 3 / 3;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
 
   p {
     line-height: 1em;
     &.temp-item-top {
       font-size: 3em;
+      grid-area: 1 / 1 / 2 / 2;
     }
     &.temp-item-bottom {
       font-size: 2em;
       padding-top: 10px;
+      grid-area: 2 / 1 / 3 / 2;
     }
+  }
+  div {
+    grid-area: 1 / 2 / 3 / 3;
   }
 }
 </style>

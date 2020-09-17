@@ -11,7 +11,10 @@
           <template v-if="unit === 'f'">mph</template>
           <template v-else-if="unit === 'c'">m/s</template>
         </p>
-        <span class="inline-span" :style="'transform: rotate(' + wind.deg.toString() + 'deg);'"><vue-fontawesome icon="long-arrow-alt-up" /></span><p class="inline-p bottom">Wind</p>
+        <span class="inline-span" :style="'transform: rotate(' + wind.deg.toString() + 'deg);'">
+          <vue-fontawesome icon="long-arrow-alt-up" />
+        </span>
+        <p class="inline-p bottom">Wind</p>
       </div>
       <div>
         <p class="top">
@@ -132,7 +135,8 @@ p {
   margin-right: 10px;
 }
 
-.inline-span, .inline-p {
+.inline-span,
+.inline-p {
   display: inline-block;
 }
 </style>
