@@ -25,6 +25,7 @@
         </div>
         <div v-if="forecast">
           <HourlyForecastComponent :hourly="forecast.hourly" :unit="temperatureUnit" />
+          <DailyForecastComponent :daily="forecast.daily" :unit="temperatureUnit" />
         </div>
       </div>
     </div>
@@ -37,6 +38,7 @@ import SearchFormComponent from "./components/SearchFormComponent";
 import PrimaryWeatherComponent from "./components/PrimaryWeatherComponent";
 import SecondaryWeatherComponent from "./components/SecondaryWeatherComponent";
 import HourlyForecastComponent from "./components/HourlyForecastComponent";
+import DailyForecastComponent from "./components/DailyForecastComponent";
 
 export default {
   name: "App",
@@ -45,7 +47,8 @@ export default {
     SearchFormComponent,
     PrimaryWeatherComponent,
     SecondaryWeatherComponent,
-    HourlyForecastComponent
+    HourlyForecastComponent,
+    DailyForecastComponent
   },
   data() {
     return {
