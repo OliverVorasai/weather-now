@@ -12,7 +12,6 @@ export default {
   },
   mounted() {
     // Enable horizontal smooth scrolling with mousewheel
-    console.log(this.containerName);
     let container = document.getElementById(this.containerName);
     let scrollAmount = 0;
     let scrollMax = container.scrollWidth - container.clientWidth;
