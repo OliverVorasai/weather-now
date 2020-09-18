@@ -10,7 +10,7 @@ export default {
   },
   computed: {
     style() {
-      return this.searchMade ? "padding-top: 0%" : "padding-top: 20%";
+      return this.searchMade ? "padding-top: 0%" : "";
     },
   },
 };
@@ -24,9 +24,11 @@ h1 {
   transition: 0.5s;
   @media only screen and (max-width: 768px) {
     font-size: 3rem;
+    padding-top: 50%
   }
   @media only screen and (min-width: 769px) {
     font-size: 5rem;
+    padding-top: 20%;
   }
 }
 </style>
