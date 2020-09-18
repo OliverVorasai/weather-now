@@ -21,8 +21,9 @@ export default {
       scrollMax = container.scrollWidth - container.clientWidth;
     });
 
-    // TODO: Figure out how to disable window vertical scroll while this is active
     container.addEventListener("wheel", (e) => {
+      // Prevent default window scroll
+      e.preventDefault();
       if (e.deltaY > 0) {
         // Ensures that we only scroll up to the  limit of the container, or else
         // scrollAmount would keep increasing every time the user scrolls down
