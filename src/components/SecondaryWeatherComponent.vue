@@ -27,8 +27,10 @@
       <div>
         <p class="top">
           {{ convertedPressure }}
-          <template v-if="unit === 'f'">inHg</template>
-          <template v-else-if="unit === 'c'">hpa</template>
+          <span class="pressure-unit">
+            <template v-if="unit === 'f'">inHg</template>
+            <template v-else-if="unit === 'c'">hpa</template>
+          </span>
         </p>
         <p class="bottom">Barometer</p>
       </div>
@@ -123,12 +125,26 @@ export default {
 }
 
 p {
-  &.top {
-    font-size: 1.75em;
+  @media only screen and (max-width: 768px) {
+    &.top {
+      font-size: 1.5em;
+    }
+    &.bottom {
+      font-size: 1em;
+    }
   }
-  &.bottom {
-    font-size: 1em;
+  @media only screen and (min-width: 769px) {
+    &.top {
+      font-size: 1.75em;
+    }
+    &.bottom {
+      font-size: 1em;
+    }
   }
+}
+
+.pressure-unit {
+  font-size: 0.75em;
 }
 
 .inline-span {
