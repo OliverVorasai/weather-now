@@ -5,7 +5,7 @@
       <div class="daily-forecast" v-for="forecast in daily.slice(0, 20)" :key="forecast.dt">
         <span class="left-span">{{ getDate(forecast.dt) }}</span>
         <br />
-        <IconComponent :weatherType="forecast.weather[0].id" :size="'lg'" />
+        <AnimatedIconComponent :weatherType="forecast.weather[0].id" :size="'lg'" />
         <br />
         <span class="inline-span">
           <TemperatureComponent :temp="forecast.temp.max" :unit="unit" />
@@ -20,14 +20,14 @@
 </template>
 
 <script>
-import IconComponent from "./IconComponent";
+import AnimatedIconComponent from "./AnimatedIconComponent";
 import TemperatureComponent from "./TemperatureComponent";
 import HorizontalScrollWrapper from "./HorizontalScrollWrapper";
 
 export default {
   name: "DailyForecastComponent",
   components: {
-    IconComponent,
+    AnimatedIconComponent,
     TemperatureComponent,
     HorizontalScrollWrapper
   },
