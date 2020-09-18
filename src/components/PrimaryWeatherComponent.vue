@@ -5,7 +5,7 @@
         <h2>{{city}}, {{country}}</h2>
       </div>
       <div class="icon-item">
-        <AnimatedIconComponent :weatherType="weatherType" :size="'6x'" />
+        <IconComponent :weatherType="weatherType" :size="'6x'" />
       </div>
       <div class="temp-item">
         <TemperatureComponent :temp="temp" :unit="unit" :className="'temp-item-top'" />
@@ -17,14 +17,14 @@
 </template>
 
 <script>
-import AnimatedIconComponent from "./AnimatedIconComponent";
+import IconComponent from "./IconComponent";
 import TemperatureComponent from "./TemperatureComponent";
 import UnitSwitchComponent from "./UnitSwitchComponent";
 
 export default {
   name: "PrimaryWeatherComponent",
   components: {
-    AnimatedIconComponent,
+    IconComponent,
     TemperatureComponent,
     UnitSwitchComponent,
   },

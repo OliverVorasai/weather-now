@@ -5,6 +5,12 @@ import Bulma from 'bulma';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import {
+  faCloud,
+  faBolt,
+  faCloudRain,
+  faSnowflake,
+  faSun,
+  faSmog,
   faSearch,
   faExclamationCircle,
   faLongArrowAltUp
@@ -13,6 +19,12 @@ import {
 Vue.config.productionTip = false
 
 library.add(
+  faCloud,
+  faBolt,
+  faCloudRain,
+  faSnowflake,
+  faSun,
+  faSmog,
   faSearch,
   faExclamationCircle,
   faLongArrowAltUp

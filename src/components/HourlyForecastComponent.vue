@@ -7,7 +7,7 @@
         <br />
         <span>{{ getTime(forecast.dt) }}</span>
         <br />
-        <AnimatedIconComponent :weatherType="forecast.weather[0].id" :size="'lg'" />
+        <IconComponent :weatherType="forecast.weather[0].id" :size="'lg'" />
         <br />
         <span>
           <TemperatureComponent :temp="forecast.temp" :unit="unit" />
@@ -18,14 +18,14 @@
 </template>
 
 <script>
-import AnimatedIconComponent from "./AnimatedIconComponent";
+import IconComponent from "./IconComponent";
 import TemperatureComponent from "./TemperatureComponent";
 import HorizontalScrollWrapper from "./HorizontalScrollWrapper";
 
 export default {
   name: "HourlyForecastComponent",
   components: {
-    AnimatedIconComponent,
+    IconComponent,
     TemperatureComponent,
     HorizontalScrollWrapper
   },
